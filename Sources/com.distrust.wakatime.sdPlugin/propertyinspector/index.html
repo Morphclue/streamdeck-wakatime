@@ -2,27 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover">
+    <meta name=viewport
+          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui,viewport-fit=cover">
     <meta name=apple-mobile-web-app-capable content=yes>
     <meta name=apple-mobile-web-app-status-bar-style content=black>
     <title>Properties</title>
     <link rel="stylesheet" href="css/sdpi.css">
 </head>
 <body>
-    <div class="sdpi-wrapper">
-        <div class="sdpi-item">
-            <div class="sdpi-item-label">Username</div>
-            <label for="username"></label>
-            <input id="username" class="sdpi-item-value" type="text" value="" required/>
-        </div>
-        <div class="sdpi-item">
-            <div class="sdpi-item-label">Minutes</div>
-            <label for="minutes"></label>
-            <input id="minutes" class="sdpi-item-value" type="number" step="1" value="" required/>
-        </div>
-        <div class="sdpi-item">
-            <button class="sdpi-item-value" id="accept" value="Refresh">Refresh</button>
-        </div>
+<div class="sdpi-wrapper">
+    <div class="sdpi-item">
+        <div class="sdpi-item-label">Username</div>
+        <label for="username"></label>
+        <input id="username" class="sdpi-item-value" type="text" value=""
+               placeholder="Enter your username (case sensitive)" required/>
     </div>
+    <div class="sdpi-item">
+        <div class="sdpi-item-label">Minutes</div>
+        <label for="minutes"></label>
+        <input id="minutes" class="sdpi-item-value" type="number" step="1" value=""
+               placeholder="Enter your daily minutes" required/>
+    </div>
+    <div class="sdpi-item">
+        <button class="sdpi-item-value" id="accept" value="Refresh">Refresh</button>
+    </div>
+</div>
 </body>
 </html>
