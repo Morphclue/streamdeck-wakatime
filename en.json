@@ -1,0 +1,14 @@
+{
+  "Description": "WakaTime",
+  "Name": "Stream Deck WakaTime",
+  "Category": "WakaTime",
+  "com.distrust.wakatime.action": {
+    "Name": "WakaTime",
+    "Tooltip": "Shows the remaining WakaTime working time."
+  },
+  "Localization": {
+    "username": "Username",
+    "minutes": "Minutes",
+    "refresh": "Refresh"
+  }
+}
