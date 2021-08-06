@@ -2,7 +2,9 @@
 This plugin will show you how many minutes you have left to code for today.
 
 ## Installation
-This section will be described once the plugin is ready to use. 
+In the Release folder, you can find the file com.distrust.wakatime.streamDeckPlugin. 
+If you double-click this file on your machine, Stream Deck will install the plugin.
+Please note that this plugin is still in development.
 
 ## Licenses
 ### Source code
@@ -10,3 +12,4 @@ The code in this repository falls under the [MIT-License](https://github.com/dis
 
 ### Assets
 * [Streamdeck Template](https://github.com/elgatosf/streamdeck-plugintemplate)
+* [Developer Documentation](https://developer.elgato.com/documentation/stream-deck/sdk/overview/)
