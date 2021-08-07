@@ -32,7 +32,7 @@ function handleMessage(event) {
             console.log('Stream-Deck disappeared')
             break
         default:
-            console.log('Unknown Event')
+            console.log('Unknown Event: ' + eventObject.event)
             break
     }
 }
