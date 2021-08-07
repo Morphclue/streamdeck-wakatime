@@ -44,16 +44,16 @@ function reloadProperties(eventObject) {
     if (document.getElementById('username').value === "undefined") {
         document.getElementById('username').value = "";
     }
-    if (document.getElementById('minutes').value === "undefined") {
-        document.getElementById('minutes').value = "";
-    }
     if (document.getElementById('apikey').value === "undefined") {
         document.getElementById('apikey').value = "";
     }
+    if (document.getElementById('minutes').value === "undefined") {
+        document.getElementById('minutes').value = "";
+    }
 
     document.getElementById('username').value = payloadSettings.username;
-    document.getElementById('minutes').value = payloadSettings.minutes;
     document.getElementById('apikey').value = payloadSettings.apikey;
+    document.getElementById('minutes').value = payloadSettings.minutes;
 }
 
 function refreshButtonOnClick() {
@@ -63,8 +63,8 @@ function refreshButtonOnClick() {
 function sendGlobalSettings() {
     let payload = {};
     payload.username = document.getElementById('username').value;
-    payload.minutes = document.getElementById('minutes').value;
     payload.apikey = document.getElementById('apikey').value;
+    payload.minutes = document.getElementById('minutes').value;
 
     const json = {
         "event": "setGlobalSettings",
@@ -73,10 +73,10 @@ function sendGlobalSettings() {
     }
 
     websocket.send(JSON.stringify(json));
-    fetchWakaTimeStats(payload.username, payload.minutes, payload.apikey);
+    fetchWakaTimeStats(payload.username, payload.apikey, payload.minutes);
 }
 
-function fetchWakaTimeStats(username, minutes, apikey) {
+function fetchWakaTimeStats(username, apikey, minutes) {
     fetch(`https://wakatime.com/api/v1/users/${username}/durations?date=today`, {
         headers: new Headers({
             'Authorization': 'Basic ' + btoa(apikey),

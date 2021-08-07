@@ -8,8 +8,8 @@
   },
   "Localization": {
     "username": "Username",
-    "minutes": "Minutes",
     "apikey": "API-Key",
+    "minutes": "Minutes",
     "refresh": "Refresh"
   }
 }
