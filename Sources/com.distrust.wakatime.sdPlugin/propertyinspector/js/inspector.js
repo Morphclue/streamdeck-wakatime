@@ -1,8 +1,8 @@
 let websocket = null;
-let uuid = null;
+let inspectorUUID = null;
 
 function connectElgatoStreamDeckSocket(inPort, inPropertyInspectorUUID, inRegisterEvent, inInfo, inActionInfo) {
-    uuid = inPropertyInspectorUUID;
+    inspectorUUID = inPropertyInspectorUUID;
     websocket = new WebSocket('ws://localhost:' + inPort);
 
     websocket.onopen = () => registerPlugin(inRegisterEvent, inPropertyInspectorUUID);
@@ -18,7 +18,7 @@ function registerPlugin(inRegisterEvent, inPropertyInspectorUUID) {
 
     json = {
         "event": "getGlobalSettings",
-        "context": uuid,
+        "context": inspectorUUID,
     };
     websocket.send(JSON.stringify(json));
 }
@@ -67,7 +67,7 @@ function sendGlobalSettings() {
 
     const json = {
         "event": "setGlobalSettings",
-        "context": uuid,
+        "context": inspectorUUID,
         "payload": payload
     };
 
@@ -104,7 +104,7 @@ function sendToPlugin(payload) {
     const json = {
         "action": "com.distrust.wakatime.action",
         "event": "sendToPlugin",
-        "context": uuid,
+        "context": inspectorUUID,
         "payload": payload
     };
 
