@@ -5,19 +5,10 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
     pluginUUID = inPluginUUID;
     websocket = new WebSocket("ws://localhost:" + inPort);
 
-    websocket.onopen = () => registerPlugin(inRegisterEvent, inPluginUUID);
+    websocket.onopen = () => registerPlugin(inRegisterEvent);
     websocket.onmessage = (event) => handleMessage(event);
     websocket.onerror = (event) => console.warn('Websocket error:', event, event.data);
     websocket.onclose = (event) => unregisterPlugin(event);
-}
-
-function registerPlugin(inRegisterEvent, inPluginUUID) {
-    const json = {
-        "event": inRegisterEvent,
-        "uuid": inPluginUUID
-    };
-
-    websocket.send(JSON.stringify(json));
 }
 
 function handleMessage(event) {
@@ -38,6 +29,15 @@ function handleMessage(event) {
             console.log('Unknown Event: ' + eventObject.event);
             break;
     }
+}
+
+function registerPlugin(inRegisterEvent) {
+    const json = {
+        "event": inRegisterEvent,
+        "uuid": pluginUUID
+    };
+
+    websocket.send(JSON.stringify(json));
 }
 
 function unregisterPlugin(event) {
