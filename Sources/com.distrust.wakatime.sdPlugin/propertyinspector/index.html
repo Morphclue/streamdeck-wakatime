@@ -24,8 +24,15 @@
                placeholder="Enter your daily minutes" required/>
     </div>
     <div class="sdpi-item">
+        <div class="sdpi-item-label" data-localize="apikey">API-Key</div>
+        <label for="apikey"></label>
+        <input id="apikey" class="sdpi-item-value" type="text" value=""
+               placeholder="Enter your WakaTime API-Key" required>
+    </div>
+    <div class="sdpi-item">
         <button class="sdpi-item-value" id="accept" value="Refresh"
-                onclick="refreshButtonOnClick()" data-localize="refresh">Refresh</button>
+                onclick="refreshButtonOnClick()" data-localize="refresh">Refresh
+        </button>
     </div>
 </div>
 <script src="js/inspector.js"></script>

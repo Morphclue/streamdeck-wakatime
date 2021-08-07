@@ -9,6 +9,7 @@
   "Localization": {
     "username": "Nutzername",
     "minutes": "Minuten",
+    "apikey": "API-Key",
     "refresh": "Aktualisieren"
   }
 }
