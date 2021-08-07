@@ -57,6 +57,10 @@ function reloadProperties(eventObject) {
 }
 
 function refreshButtonOnClick() {
+    sendGlobalSettings();
+}
+
+function sendGlobalSettings() {
     let payload = {};
     payload.username = document.getElementById('username').value;
     payload.minutes = document.getElementById('minutes').value;
@@ -69,5 +73,20 @@ function refreshButtonOnClick() {
     }
 
     websocket.send(JSON.stringify(json));
-    console.log(json);
+    fetchWakaTimeStats(payload.username, payload.minutes, payload.apikey);
+}
+
+function fetchWakaTimeStats(username, minutes, apikey) {
+    console.log("FETCHED:")
+    fetch(`https://wakatime.com/api/v1/users/${username}/durations?date=today`, {
+        headers: new Headers({
+            'Authorization': 'Basic ' + btoa(apikey),
+        })
+    }).then(response => {
+        return response.json();
+    }).then(data => {
+        // calculateRemainingMinutes(data.data, minutes);
+    }).catch(error => {
+        console.log(error);
+    })
 }
