@@ -85,8 +85,16 @@ function fetchWakaTimeStats(username, minutes, apikey) {
     }).then(response => {
         return response.json();
     }).then(data => {
-        // calculateRemainingMinutes(data.data, minutes);
+        calculateRemainingMinutes(data.data, minutes);
     }).catch(error => {
         console.log(error);
     })
+}
+
+function calculateRemainingMinutes(durations, minutesToReach) {
+    let workedMinutes = 0;
+    for (const value of durations) {
+        workedMinutes += value.duration;
+    }
+    workedMinutes = Math.floor(workedMinutes) - minutesToReach;
 }
