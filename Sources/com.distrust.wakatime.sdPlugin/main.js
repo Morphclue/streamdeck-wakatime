@@ -22,7 +22,6 @@ function registerPlugin(inRegisterEvent, inPluginUUID) {
 
 function handleMessage(event) {
     const eventObject = JSON.parse(event.data);
-    console.log(eventObject);
 
     switch (eventObject['event']) {
         case 'willAppear':
@@ -30,6 +29,10 @@ function handleMessage(event) {
             break;
         case 'willDisappear':
             console.log('Stream-Deck disappeared');
+            break;
+        case 'sendToPlugin':
+            console.log('Data from PropertyInspector arrived.');
+            const remainingMinutes = eventObject.payload.remaining;
             break;
         default:
             console.log('Unknown Event: ' + eventObject.event);

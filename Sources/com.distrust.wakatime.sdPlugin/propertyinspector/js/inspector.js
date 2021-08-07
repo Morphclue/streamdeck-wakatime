@@ -25,7 +25,6 @@ function registerPlugin(inRegisterEvent, inPropertyInspectorUUID) {
 
 function handleMessage(event) {
     const eventObject = JSON.parse(event.data);
-    console.log(eventObject);
 
     switch (eventObject['event']) {
         case 'didReceiveGlobalSettings':
@@ -84,17 +83,30 @@ function fetchWakaTimeStats(username, apikey, minutes) {
     }).then(response => {
         return response.json();
     }).then(data => {
-        calculateRemainingMinutes(data.data, minutes);
+        let payload = {};
+        payload.remaining = calculateRemainingMinutes(data.data, minutes);
+        sendToPlugin(payload);
     }).catch(error => {
         console.log(error);
     });
 }
 
 function calculateRemainingMinutes(durations, minutesToReach) {
-    let workedMinutes = 0;
+    let workedSeconds = 0;
     for (const value of durations) {
-        workedMinutes += value.duration;
+        workedSeconds += value.duration;
     }
 
-    const remainingTime = minutesToReach - Math.floor(workedMinutes);
+    return minutesToReach - Math.floor(workedSeconds / 60);
+}
+
+function sendToPlugin(payload) {
+    const json = {
+        "action": "com.distrust.wakatime.action",
+        "event": "sendToPlugin",
+        "context": uuid,
+        "payload": payload
+    };
+
+    websocket.send(JSON.stringify(json));
 }
