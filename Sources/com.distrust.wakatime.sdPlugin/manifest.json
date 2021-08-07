@@ -5,9 +5,12 @@
       "Name": "WakaTime",
       "States": [
         {
-          "Image": "action/images/action"
+          "Image": "action/images/action",
+          "TitleAlignment": "middle",
+          "FontSize": "16"
         }
       ],
+      "SupportedInMultiActions": false,
       "Tooltip": "Display left WakaTime hours",
       "UUID": "com.distrust.wakatime.action"
     }
