@@ -77,7 +77,6 @@ function sendGlobalSettings() {
 }
 
 function fetchWakaTimeStats(username, minutes, apikey) {
-    console.log("FETCHED:")
     fetch(`https://wakatime.com/api/v1/users/${username}/durations?date=today`, {
         headers: new Headers({
             'Authorization': 'Basic ' + btoa(apikey),
@@ -96,5 +95,6 @@ function calculateRemainingMinutes(durations, minutesToReach) {
     for (const value of durations) {
         workedMinutes += value.duration;
     }
-    workedMinutes = Math.floor(workedMinutes) - minutesToReach;
+
+    const remainingTime = minutesToReach - Math.floor(workedMinutes);
 }
