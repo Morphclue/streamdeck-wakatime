@@ -1,38 +1,37 @@
 {
   "Actions": [
     {
-      "Icon": "action/images/actionimage", 
+      "Icon": "action/images/actionimage",
       "Name": "WakaTime",
       "States": [
         {
           "Image": "action/images/action"
         }
-      ], 
+      ],
       "Tooltip": "Display left WakaTime hours",
       "UUID": "com.distrust.wakatime.action"
     }
-  ], 
+  ],
   "SDKVersion": 2,
   "Author": "distrustME",
-  "CodePath": "index.html", 
-  "PropertyInspectorPath": "propertyinspector/index.html", 
+  "CodePath": "index.html",
+  "PropertyInspectorPath": "propertyinspector/index.html",
   "Description": "Username- and Timer-Settings",
   "Name": "Stream Deck WakaTime",
-  "Icon": "action/images/action", 
+  "Icon": "action/images/action",
   "URL": "https://github.com/distrustME/streamdeck-wakatime",
   "Version": "0.0.1",
   "OS": [
     {
-        "Platform": "mac", 
-        "MinimumVersion" : "10.11"
+      "Platform": "mac",
+      "MinimumVersion": "10.11"
     },
     {
-        "Platform": "windows", 
-        "MinimumVersion" : "10"
+      "Platform": "windows",
+      "MinimumVersion": "10"
     }
   ],
-  "Software": 
-    {
-        "MinimumVersion" : "4.1"
+  "Software": {
+    "MinimumVersion": "4.1"
   }
 }

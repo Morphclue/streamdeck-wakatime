@@ -29,12 +29,12 @@ function handleMessage(event) {
 
     switch (eventObject['event']) {
         case 'didReceiveGlobalSettings':
-            console.log('Did receive global settings.')
+            console.log('Did receive global settings.');
             reloadProperties(eventObject);
-            break
+            break;
         default:
-            console.log('Unknown Event: ' + eventObject.event)
-            break
+            console.log('Unknown Event: ' + eventObject.event);
+            break;
     }
 }
 
@@ -70,7 +70,7 @@ function sendGlobalSettings() {
         "event": "setGlobalSettings",
         "context": uuid,
         "payload": payload
-    }
+    };
 
     websocket.send(JSON.stringify(json));
     fetchWakaTimeStats(payload.username, payload.apikey, payload.minutes);
@@ -87,7 +87,7 @@ function fetchWakaTimeStats(username, apikey, minutes) {
         calculateRemainingMinutes(data.data, minutes);
     }).catch(error => {
         console.log(error);
-    })
+    });
 }
 
 function calculateRemainingMinutes(durations, minutesToReach) {

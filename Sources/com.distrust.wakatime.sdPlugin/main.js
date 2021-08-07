@@ -26,19 +26,19 @@ function handleMessage(event) {
 
     switch (eventObject['event']) {
         case 'willAppear':
-            console.log('Stream-Deck appeared')
-            break
+            console.log('Stream-Deck appeared');
+            break;
         case 'willDisappear':
-            console.log('Stream-Deck disappeared')
-            break
+            console.log('Stream-Deck disappeared');
+            break;
         default:
-            console.log('Unknown Event: ' + eventObject.event)
-            break
+            console.log('Unknown Event: ' + eventObject.event);
+            break;
     }
 }
 
 function unregisterPlugin(event) {
-    const reason = getWebsocketReason(event)
+    const reason = getWebsocketReason(event);
     console.warn('Websocket closed:', reason);
 }
 
