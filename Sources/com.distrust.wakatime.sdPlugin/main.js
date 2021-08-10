@@ -1,7 +1,9 @@
 let websocket = null;
 let pluginUUID = null;
+let settings = null;
 let titleContext = null;
 let remainingMinutes = 0;
+let timerId;
 
 function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, inInfo) {
     pluginUUID = inPluginUUID;
@@ -30,7 +32,7 @@ function handleMessage(event) {
             break;
         case 'didReceiveGlobalSettings':
             console.log('Did receive global settings.');
-            const settings = eventObject.payload.settings;
+            settings = eventObject.payload.settings;
             if (settings.username && settings.apikey && settings.minutes) {
                 fetchWakaTimeStats(
                     settings.username,
@@ -53,7 +55,6 @@ function fetchWakaTimeStats(username, apikey, minutes) {
     }).then(response => {
         return response.json();
     }).then(data => {
-        console.log(data);
         remainingMinutes = calculateRemainingMinutes(data.data, minutes);
         setTitle(remainingMinutes);
     }).catch(error => {
@@ -70,6 +71,19 @@ function registerPlugin(inRegisterEvent) {
     websocket.send(JSON.stringify(json));
 
     getGlobalSettings();
+    startTimer();
+}
+
+function startTimer() {
+    timerId = setInterval(function () {
+        if (settings.username && settings.apikey && settings.minutes) {
+            fetchWakaTimeStats(
+                settings.username,
+                settings.apikey,
+                settings.minutes
+            );
+        }
+    }, 30 * 1000);
 }
 
 function getGlobalSettings() {
@@ -84,6 +98,8 @@ function getGlobalSettings() {
 function unregisterPlugin(event) {
     const reason = getWebsocketReason(event);
     console.warn('Websocket closed:', reason);
+
+    clearInterval(timerId);
 }
 
 function setTitle(title) {

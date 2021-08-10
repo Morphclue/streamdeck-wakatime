@@ -1,5 +1,6 @@
 # streamdeck-wakatime
 This plugin will show you how many minutes you have left to code for today.
+It fetches the API every 30 seconds due to rounding.
 
 ## Installation
 In the Release folder, you can find the file com.distrust.wakatime.streamDeckPlugin. 
