@@ -1,6 +1,7 @@
 let websocket = null;
 let pluginUUID = null;
 let titleContext = null;
+let remainingMinutes = 0;
 
 function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, inInfo) {
     pluginUUID = inPluginUUID;
@@ -25,10 +26,18 @@ function handleMessage(event) {
             break;
         case 'sendToPlugin':
             console.log('Data from PropertyInspector arrived.');
-            setTitle(eventObject.payload.remaining);
+            getGlobalSettings();
             break;
         case 'didReceiveGlobalSettings':
             console.log('Did receive global settings.');
+            const settings = eventObject.payload.settings;
+            if (settings.username && settings.apikey && settings.minutes) {
+                fetchWakaTimeStats(
+                    settings.username,
+                    settings.apikey,
+                    settings.minutes
+                );
+            }
             break;
         default:
             console.log('Unknown Event: ' + eventObject.event);
@@ -36,18 +45,39 @@ function handleMessage(event) {
     }
 }
 
+function fetchWakaTimeStats(username, apikey, minutes) {
+    fetch(`https://wakatime.com/api/v1/users/${username}/durations?date=today`, {
+        headers: new Headers({
+            'Authorization': 'Basic ' + btoa(apikey),
+        })
+    }).then(response => {
+        return response.json();
+    }).then(data => {
+        console.log(data);
+        remainingMinutes = calculateRemainingMinutes(data.data, minutes);
+        setTitle(remainingMinutes);
+    }).catch(error => {
+        console.log(error);
+    });
+}
+
 function registerPlugin(inRegisterEvent) {
-    let json = {
+    const json = {
         "event": inRegisterEvent,
         "uuid": pluginUUID
     };
 
     websocket.send(JSON.stringify(json));
 
-    json = {
+    getGlobalSettings();
+}
+
+function getGlobalSettings() {
+    const json = {
         "event": "getGlobalSettings",
         "context": pluginUUID,
     };
+
     websocket.send(JSON.stringify(json));
 }
 
@@ -67,6 +97,15 @@ function setTitle(title) {
     };
 
     websocket.send(JSON.stringify(json));
+}
+
+function calculateRemainingMinutes(durations, minutesToReach) {
+    let workedSeconds = 0;
+    for (const value of durations) {
+        workedSeconds += value.duration;
+    }
+
+    return minutesToReach - Math.floor(workedSeconds / 60);
 }
 
 function getWebsocketReason(event) {

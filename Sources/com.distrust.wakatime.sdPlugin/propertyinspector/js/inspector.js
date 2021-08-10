@@ -9,19 +9,6 @@ function connectElgatoStreamDeckSocket(inPort, inPropertyInspectorUUID, inRegist
     websocket.onmessage = (event) => handleMessage(event);
 }
 
-function registerPlugin(inRegisterEvent, inPropertyInspectorUUID) {
-    let json = {
-        "event": inRegisterEvent,
-        "uuid": inPropertyInspectorUUID
-    };
-    websocket.send(JSON.stringify(json));
-
-    json = {
-        "event": "getGlobalSettings",
-        "context": inspectorUUID,
-    };
-    websocket.send(JSON.stringify(json));
-}
 
 function handleMessage(event) {
     const eventObject = JSON.parse(event.data);
@@ -35,6 +22,20 @@ function handleMessage(event) {
             console.log('Unknown Event: ' + eventObject.event);
             break;
     }
+}
+
+function registerPlugin(inRegisterEvent, inPropertyInspectorUUID) {
+    let json = {
+        "event": inRegisterEvent,
+        "uuid": inPropertyInspectorUUID
+    };
+    websocket.send(JSON.stringify(json));
+
+    json = {
+        "event": "getGlobalSettings",
+        "context": inspectorUUID,
+    };
+    websocket.send(JSON.stringify(json));
 }
 
 function reloadProperties(eventObject) {
@@ -56,10 +57,10 @@ function reloadProperties(eventObject) {
 }
 
 function refreshButtonOnClick() {
-    sendGlobalSettings();
+    setGlobalSettings();
 }
 
-function sendGlobalSettings() {
+function setGlobalSettings() {
     let payload = {};
     payload.username = document.getElementById('username').value;
     payload.apikey = document.getElementById('apikey').value;
@@ -72,32 +73,6 @@ function sendGlobalSettings() {
     };
 
     websocket.send(JSON.stringify(json));
-    fetchWakaTimeStats(payload.username, payload.apikey, payload.minutes);
-}
-
-function fetchWakaTimeStats(username, apikey, minutes) {
-    fetch(`https://wakatime.com/api/v1/users/${username}/durations?date=today`, {
-        headers: new Headers({
-            'Authorization': 'Basic ' + btoa(apikey),
-        })
-    }).then(response => {
-        return response.json();
-    }).then(data => {
-        let payload = {};
-        payload.remaining = calculateRemainingMinutes(data.data, minutes);
-        sendToPlugin(payload);
-    }).catch(error => {
-        console.log(error);
-    });
-}
-
-function calculateRemainingMinutes(durations, minutesToReach) {
-    let workedSeconds = 0;
-    for (const value of durations) {
-        workedSeconds += value.duration;
-    }
-
-    return minutesToReach - Math.floor(workedSeconds / 60);
 }
 
 function sendToPlugin(payload) {
