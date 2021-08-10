@@ -1,5 +1,6 @@
 let websocket = null;
 let pluginUUID = null;
+let titleContext = null;
 
 function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, inInfo) {
     pluginUUID = inPluginUUID;
@@ -17,13 +18,14 @@ function handleMessage(event) {
     switch (eventObject['event']) {
         case 'willAppear':
             console.log('Stream-Deck appeared');
+            titleContext = eventObject.context;
             break;
         case 'willDisappear':
             console.log('Stream-Deck disappeared');
             break;
         case 'sendToPlugin':
             console.log('Data from PropertyInspector arrived.');
-            const remainingMinutes = eventObject.payload.remaining;
+            setTitle(eventObject.payload.remaining);
             break;
         default:
             console.log('Unknown Event: ' + eventObject.event);
@@ -43,6 +45,19 @@ function registerPlugin(inRegisterEvent) {
 function unregisterPlugin(event) {
     const reason = getWebsocketReason(event);
     console.warn('Websocket closed:', reason);
+}
+
+function setTitle(title) {
+    const json = {
+        "event": "setTitle",
+        "context": titleContext,
+        "payload": {
+            "title": "" + title,
+            "target": 0
+        }
+    };
+
+    websocket.send(JSON.stringify(json));
 }
 
 function getWebsocketReason(event) {
