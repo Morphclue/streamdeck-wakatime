@@ -27,6 +27,9 @@ function handleMessage(event) {
             console.log('Data from PropertyInspector arrived.');
             setTitle(eventObject.payload.remaining);
             break;
+        case 'didReceiveGlobalSettings':
+            console.log('Did receive global settings.');
+            break;
         default:
             console.log('Unknown Event: ' + eventObject.event);
             break;
@@ -34,11 +37,17 @@ function handleMessage(event) {
 }
 
 function registerPlugin(inRegisterEvent) {
-    const json = {
+    let json = {
         "event": inRegisterEvent,
         "uuid": pluginUUID
     };
 
+    websocket.send(JSON.stringify(json));
+
+    json = {
+        "event": "getGlobalSettings",
+        "context": pluginUUID,
+    };
     websocket.send(JSON.stringify(json));
 }
 
