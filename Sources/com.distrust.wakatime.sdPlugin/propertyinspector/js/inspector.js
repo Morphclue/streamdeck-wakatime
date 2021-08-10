@@ -73,6 +73,7 @@ function setGlobalSettings() {
     };
 
     websocket.send(JSON.stringify(json));
+    sendToPlugin(payload);
 }
 
 function sendToPlugin(payload) {
