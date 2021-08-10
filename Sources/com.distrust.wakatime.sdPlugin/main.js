@@ -33,11 +33,7 @@ function handleMessage(event) {
         case 'didReceiveGlobalSettings':
             console.log('Did receive global settings.');
             settings = eventObject.payload.settings;
-            fetchWakaTimeStats(
-                settings.username,
-                settings.apikey,
-                settings.minutes
-            );
+            fetchWakaTimeStats();
             break;
         default:
             console.log('Unknown Event: ' + eventObject.event);
@@ -45,19 +41,19 @@ function handleMessage(event) {
     }
 }
 
-function fetchWakaTimeStats(username, apikey, minutes) {
+function fetchWakaTimeStats() {
     if (!(settings.username && settings.apikey && settings.minutes)) {
         return;
     }
 
-    fetch(`https://wakatime.com/api/v1/users/${username}/durations?date=today`, {
+    fetch(`https://wakatime.com/api/v1/users/${settings.username}/durations?date=today`, {
         headers: new Headers({
-            'Authorization': 'Basic ' + btoa(apikey),
+            'Authorization': 'Basic ' + btoa(settings.apikey),
         })
     }).then(response => {
         return response.json();
     }).then(data => {
-        remainingMinutes = calculateRemainingMinutes(data.data, minutes);
+        remainingMinutes = calculateRemainingMinutes(data.data, settings.minutes);
         setTitle(remainingMinutes);
     }).catch(error => {
         console.log(error);
@@ -78,11 +74,7 @@ function registerPlugin(inRegisterEvent) {
 
 function startTimer() {
     timerId = setInterval(function () {
-        fetchWakaTimeStats(
-            settings.username,
-            settings.apikey,
-            settings.minutes
-        );
+        fetchWakaTimeStats();
     }, 30 * 1000);
 }
 
