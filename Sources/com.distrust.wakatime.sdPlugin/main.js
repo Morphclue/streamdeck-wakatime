@@ -113,7 +113,8 @@ function calculateRemainingMinutes(durations, minutesToReach) {
         workedSeconds += value.duration;
     }
 
-    return minutesToReach - Math.floor(workedSeconds / 60);
+    const remainingTime = minutesToReach - Math.floor(workedSeconds / 60);
+    return remainingTime > 0 ? remainingTime : 0;
 }
 
 function getWebsocketReason(event) {
