@@ -19,6 +19,7 @@ jobs:
           path: .\com.distrust.wakatime.streamDeckPlugin
   release:
     name: Publish Plugin in Release
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     needs: build
     runs-on: ubuntu-latest
     steps:
