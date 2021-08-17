@@ -1,0 +1,19 @@
+name: Continuous Integration
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build Plugin
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: .\Tools\DistributionTool.exe -b -i "Sources\com.distrust.wakatime.sdPlugin" -o .
+      - uses: actions/upload-artifact@v2
+        with:
+          name: plugin-artifact
+          path: .\com.distrust.wakatime.streamDeckPlugin
