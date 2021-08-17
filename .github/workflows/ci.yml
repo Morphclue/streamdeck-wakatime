@@ -17,3 +17,12 @@ jobs:
         with:
           name: plugin-artifact
           path: .\com.distrust.wakatime.streamDeckPlugin
+  release:
+    name: Publish Plugin in Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "plugin-artifact"
+          token: ${{ secrets.RELEASE_TOKEN }}
