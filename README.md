@@ -6,8 +6,8 @@ rounding.
 
 ## Installation
 
-In the Release folder, you can find the file com.distrust.wakatime.streamDeckPlugin. If you double-click this file on
-your machine, Stream Deck will install the plugin. Please note that this plugin is still in development.
+In the Release section, you can find the file com.distrust.wakatime.streamDeckPlugin. If you double-click this file on
+your machine, Stream Deck will install the plugin.
 
 ## Setup
 
