@@ -21,8 +21,8 @@ jobs:
         with:
           fetch-depth: 0
       - uses: actions/download-artifact@v2
-      with:
-        name: plugin-artifact
+        with:
+          name: plugin-artifact
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "plugin-artifact"
