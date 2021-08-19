@@ -25,5 +25,5 @@ jobs:
           name: plugin-artifact
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "plugin-artifact"
+          artifacts: "/home/runner/work/streamdeck-wakatime/streamdeck-wakatime/plugin-artifact"
           token: ${{ secrets.RELEASE_TOKEN }}
