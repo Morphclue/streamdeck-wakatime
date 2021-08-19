@@ -1,3 +1,4 @@
+![ci](https://github.com/distrustME/streamdeck-wakatime/actions/workflows/ci.yml/badge.svg)
 # streamdeck-wakatime
 
 This plugin will show you how many minutes you have left to code for today. It fetches the API every 30 seconds due to
