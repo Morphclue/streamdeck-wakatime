@@ -23,10 +23,25 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: plugin-artifact
-          path: .
+          path: ${{runner.temp}}/artifacts
       - name: Display structure of downloaded files
         run: ls -R
-      - uses: ncipollo/release-action@v1
+        working-directory: ${{runner.temp}}/artifacts
+      - name: Create Release-Draft
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
-          artifacts: plugin-artifact
-          token: ${{ secrets.RELEASE_TOKEN }}
+          release_name: Release ${{ github.ref }}
+          tag_name: ${{ github.ref }}
+          draft: true
+      - name: Upload asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ${{runner.temp}}/artifacts/com.distrust.wakatime.streamDeckPlugin
+          asset_name: com.distrust.wakatime.streamDeckPlugin
+          asset_content_type: application/octet-stream
