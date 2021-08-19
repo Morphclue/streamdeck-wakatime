@@ -23,7 +23,7 @@
   "Name": "Stream Deck WakaTime",
   "Icon": "action/images/action",
   "URL": "https://github.com/distrustME/streamdeck-wakatime",
-  "Version": "1.0.5",
+  "Version": "1.0.6",
   "OS": [
     {
       "Platform": "mac",
