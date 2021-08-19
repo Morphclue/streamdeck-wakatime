@@ -23,9 +23,10 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: plugin-artifact
+          path: .
       - name: Display structure of downloaded files
         run: ls -R
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: ./home/runner/work/streamdeck-wakatime/streamdeck-wakatime/plugin-artifact
+          artifacts: plugin-artifact
           token: ${{ secrets.RELEASE_TOKEN }}
