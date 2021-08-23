@@ -6,11 +6,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - run: .\Tools\DistributionTool.exe -b -i "Sources\com.distrust.wakatime.sdPlugin" -o .
+      - run: .\Tools\DistributionTool.exe -b -i "Sources\com.morphclue.wakatime.sdPlugin" -o .
       - uses: actions/upload-artifact@v2
         with:
           name: plugin-artifact
-          path: .\com.distrust.wakatime.streamDeckPlugin
+          path: .\com.morphclue.wakatime.streamDeckPlugin
   release:
     name: Publish Plugin in Release
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
@@ -42,6 +42,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ${{runner.temp}}/artifacts/com.distrust.wakatime.streamDeckPlugin
-          asset_name: com.distrust.wakatime.streamDeckPlugin
+          asset_path: ${{runner.temp}}/artifacts/com.morphclue.wakatime.streamDeckPlugin
+          asset_name: com.morphclue.wakatime.streamDeckPlugin
           asset_content_type: application/octet-stream

@@ -78,7 +78,7 @@ function setGlobalSettings() {
 
 function sendToPlugin(payload) {
     const json = {
-        "action": "com.distrust.wakatime.action",
+        "action": "com.morphclue.wakatime.action",
         "event": "sendToPlugin",
         "context": inspectorUUID,
         "payload": payload

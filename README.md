@@ -1,4 +1,4 @@
-![ci](https://github.com/distrustME/streamdeck-wakatime/actions/workflows/ci.yml/badge.svg)
+![ci](https://github.com/Morphclue/streamdeck-wakatime/actions/workflows/ci.yml/badge.svg)
 # streamdeck-wakatime
 
 This plugin will show you how many minutes you have left to code for today. It fetches the API every 30 seconds due to
@@ -6,7 +6,7 @@ rounding.
 
 ## Installation
 
-In the Release section, you can find the file com.distrust.wakatime.streamDeckPlugin. If you double-click this file on
+In the Release section, you can find the file com.morphclue.wakatime.streamDeckPlugin. If you double-click this file on
 your machine, Stream Deck will install the plugin.
 
 ## Setup
@@ -31,7 +31,7 @@ your `IDE-Plugin` only updates in certain intervals or rounding leads to small m
 ### Source code
 
 The code in this repository falls under
-the [MIT-License](https://github.com/distrustME/streamdeck-wakatime/blob/master/LICENSE).
+the [MIT-License](https://github.com/Morphclue/streamdeck-wakatime/blob/master/LICENSE).
 
 ### Assets
 

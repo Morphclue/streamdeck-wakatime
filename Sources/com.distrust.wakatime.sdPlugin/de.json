@@ -2,7 +2,7 @@
   "Description": "WakaTime-Zeiten",
   "Name": "Stream Deck WakaTime",
   "Category": "WakaTime",
-  "com.distrust.wakatime.action": {
+  "com.morphclue.wakatime.action": {
     "Name": "WakaTime",
     "Tooltip": "Zeigt die verbleibende WakaTime Arbeitszeit an."
   },

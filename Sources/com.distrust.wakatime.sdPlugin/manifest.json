@@ -12,17 +12,17 @@
       ],
       "SupportedInMultiActions": false,
       "Tooltip": "Display left WakaTime hours",
-      "UUID": "com.distrust.wakatime.action"
+      "UUID": "com.morphclue.wakatime.action"
     }
   ],
   "SDKVersion": 2,
-  "Author": "distrustME",
+  "Author": "Morphclue",
   "CodePath": "index.html",
   "PropertyInspectorPath": "propertyinspector/index.html",
   "Description": "Username- and Timer-Settings",
   "Name": "Stream Deck WakaTime",
   "Icon": "action/images/action",
-  "URL": "https://github.com/distrustME/streamdeck-wakatime",
+  "URL": "https://github.com/Morphclue/streamdeck-wakatime",
   "Version": "1.0.10",
   "OS": [
     {
