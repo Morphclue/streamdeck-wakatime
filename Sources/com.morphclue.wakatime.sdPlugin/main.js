@@ -22,6 +22,7 @@ function handleMessage(event) {
         case 'willAppear':
             console.log('Stream-Deck appeared');
             titleContext = eventObject.context;
+            fetchWakaTimeStats();
             break;
         case 'willDisappear':
             console.log('Stream-Deck disappeared');
