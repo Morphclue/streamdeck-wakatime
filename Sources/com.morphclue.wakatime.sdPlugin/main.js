@@ -36,7 +36,7 @@ function handleMessage(event) {
             settings = eventObject.payload.settings;
             fetchWakaTimeStats();
             break;
-        case 'keyDown':
+        case 'keyUp':
             console.log('Pressed keyDown');
             fetchWakaTimeStats();
             break;
