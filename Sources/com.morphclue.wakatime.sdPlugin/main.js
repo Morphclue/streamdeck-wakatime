@@ -37,7 +37,7 @@ function handleMessage(event) {
             fetchWakaTimeStats();
             break;
         case 'keyUp':
-            console.log('Pressed keyDown');
+            console.log('Pressed keyUp');
             fetchWakaTimeStats();
             break;
         default:
