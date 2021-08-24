@@ -48,6 +48,7 @@ function handleMessage(event) {
 
 function fetchWakaTimeStats() {
     if (!(settings.username && settings.apikey && settings.minutes)) {
+        showAlert();
         return;
     }
 
@@ -81,6 +82,15 @@ function startTimer() {
     timerId = setInterval(function () {
         fetchWakaTimeStats();
     }, 30 * 1000);
+}
+
+function showAlert() {
+    const json = {
+        "event": "showAlert",
+        "context": titleContext,
+    };
+
+    websocket.send(JSON.stringify(json));
 }
 
 function getGlobalSettings() {
