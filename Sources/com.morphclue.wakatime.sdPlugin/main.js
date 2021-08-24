@@ -35,6 +35,10 @@ function handleMessage(event) {
             settings = eventObject.payload.settings;
             fetchWakaTimeStats();
             break;
+        case 'keyDown':
+            console.log('Pressed keyDown');
+            fetchWakaTimeStats();
+            break;
         default:
             console.log('Unknown Event: ' + eventObject.event);
             break;
