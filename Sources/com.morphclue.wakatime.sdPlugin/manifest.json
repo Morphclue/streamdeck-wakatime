@@ -23,7 +23,7 @@
   "Name": "Stream Deck WakaTime",
   "Icon": "action/images/action",
   "URL": "https://github.com/Morphclue/streamdeck-wakatime",
-  "Version": "1.0.11",
+  "Version": "1.0.12",
   "OS": [
     {
       "Platform": "mac",
