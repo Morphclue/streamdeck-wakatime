@@ -1,7 +1,7 @@
 let websocket = null;
 let pluginUUID = null;
 let settings = null;
-let titleContext = null;
+let context = null;
 let remainingMinutes = 0;
 let timerId;
 
@@ -21,7 +21,7 @@ function handleMessage(event) {
     switch (eventObject['event']) {
         case 'willAppear':
             console.log('Stream-Deck appeared');
-            titleContext = eventObject.context;
+            context = eventObject.context;
             fetchWakaTimeStats();
             break;
         case 'willDisappear':
@@ -87,7 +87,7 @@ function startTimer() {
 function showAlert() {
     const json = {
         "event": "showAlert",
-        "context": titleContext,
+        "context": context,
     };
 
     websocket.send(JSON.stringify(json));
@@ -112,7 +112,7 @@ function unregisterPlugin(event) {
 function setTitle(title) {
     const json = {
         "event": "setTitle",
-        "context": titleContext,
+        "context": context,
         "payload": {
             "title": "" + title,
             "target": 0
