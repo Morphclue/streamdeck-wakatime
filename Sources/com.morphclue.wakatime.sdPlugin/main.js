@@ -123,11 +123,7 @@ function setTitle(title) {
 }
 
 function calculateRemainingMinutes(durations, minutesToReach) {
-    let workedSeconds = 0;
-    for (const value of durations) {
-        workedSeconds += value.duration;
-    }
-
+    const workedSeconds = durations.reduce((total, value) => total + value.duration, 0);
     const remainingTime = minutesToReach - Math.floor(workedSeconds / 60);
     return remainingTime > 0 ? remainingTime : 0;
 }
