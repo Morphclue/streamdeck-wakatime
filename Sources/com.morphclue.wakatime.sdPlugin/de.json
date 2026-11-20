@@ -7,8 +7,7 @@
     "Tooltip": "Zeigt die verbleibende WakaTime Arbeitszeit an."
   },
   "Localization": {
-    "username": "Nutzername",
-    "apikey": "API-Key",
+    "token": "OAuth-Zugriffstoken",
     "minutes": "Minuten",
     "refresh": "Aktualisieren"
   }
