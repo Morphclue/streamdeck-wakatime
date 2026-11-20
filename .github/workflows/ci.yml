@@ -20,6 +20,8 @@ jobs:
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v2
         with:
@@ -35,7 +37,7 @@ jobs:
         id: create-release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           release_name: Release ${{ github.ref }}
           tag_name: ${{ github.ref }}
@@ -43,7 +45,7 @@ jobs:
       - name: Upload asset
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
           asset_path: ${{runner.temp}}/artifacts/com.morphclue.wakatime.streamDeckPlugin
