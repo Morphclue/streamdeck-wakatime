@@ -1,39 +1,44 @@
-![ci](https://github.com/Morphclue/streamdeck-wakatime/actions/workflows/ci.yml/badge.svg)
-# streamdeck-wakatime
+![CI](https://github.com/Morphclue/streamdeck-wakatime/actions/workflows/ci.yml/badge.svg)
 
-This plugin will show you how many minutes you have left to code for today. It fetches the API every 30 seconds due to
-rounding.
+# Stream Deck WakaTime
+
+This plugin displays how many minutes remain until you reach your daily coding-time goal. It refreshes your WakaTime
+durations every 30 seconds.
+
+## Requirements
+
+- Stream Deck 6.9 or later
+- A WakaTime account and an OAuth access token with the `read_heartbeats` scope
+
+WakaTime API keys are write-only and cannot be used to read durations. Create a personal OAuth token at
+[wakatime.com/oauth](https://wakatime.com/oauth). The plugin uses the token to identify your account, so you do not
+need to enter your username.
 
 ## Installation
 
-In the Release section, you can find the file com.morphclue.wakatime.streamDeckPlugin. If you double-click this file on
-your machine, Stream Deck will install the plugin.
+Download `com.morphclue.wakatime.streamDeckPlugin` from the project's [Releases](https://github.com/Morphclue/streamdeck-wakatime/releases)
+page and open the downloaded file to install it in Stream Deck.
 
 ## Setup
 
-To use this plugin you need to open up the PropertyInspector and input
+1. Add the **WakaTime** action to a key.
+2. Enter your WakaTime OAuth access token and daily goal in minutes in the action's Property Inspector.
+3. Click **Refresh** to save the settings.
 
-* Your WakaTime-Username
-* Your [API-Key](https://wakatime.com/api-key)
-* Your target daily minutes
+The key displays the remaining whole minutes for today. The value may lag slightly because WakaTime updates coding
+activity periodically and the plugin refreshes every 30 seconds.
 
-![](Screenshots/streamdeck.png)
+## Development
 
-After that hit the `Refresh` Button to persist the data in the global settings.
+The CI workflow validates and packages the plugin with [Stream Deck CLI](https://docs.elgato.com/streamdeck/cli/intro/).
+Node.js 24 or later is required. From the repository root, run:
 
-### Note
-
-It may occur that one minute not always passes exactly when one realtime minute passes. This is because
-your `IDE-Plugin` only updates in certain intervals or rounding leads to small mistakes.
-
-## Licenses
+```powershell
+npx --yes @elgato/cli@latest validate "Sources\com.morphclue.wakatime.sdPlugin" --no-update-check
+npx --yes @elgato/cli@latest pack "Sources\com.morphclue.wakatime.sdPlugin" --output . --force --no-update-check
+```
 
 ### Source code
 
 The code in this repository falls under
 the [MIT-License](https://github.com/Morphclue/streamdeck-wakatime/blob/master/LICENSE).
-
-### Assets
-
-* [Streamdeck Template](https://github.com/elgatosf/streamdeck-plugintemplate)
-* [Developer Documentation](https://developer.elgato.com/documentation/stream-deck/sdk/overview/)
