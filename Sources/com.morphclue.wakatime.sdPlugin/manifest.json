@@ -27,7 +27,7 @@
   "CategoryIcon": "action/images/actionimage",
   "Icon": "action/images/action",
   "URL": "https://github.com/Morphclue/streamdeck-wakatime",
-  "Version": "1.1.0.0",
+  "Version": "1.1.1.0",
   "OS": [
     {
       "Platform": "mac",
