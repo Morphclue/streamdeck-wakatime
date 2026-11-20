@@ -1,9 +1,9 @@
 let websocket = null;
 let pluginUUID = null;
-let settings = null;
-let context = null;
+let settings = {};
 let remainingMinutes = 0;
 let timerId;
+const visibleContexts = new Set();
 
 function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, inInfo) {
     pluginUUID = inPluginUUID;
@@ -21,11 +21,12 @@ function handleMessage(event) {
     switch (eventObject['event']) {
         case 'willAppear':
             console.log('Stream-Deck appeared');
-            context = eventObject.context;
-            fetchWakaTimeStats();
+            visibleContexts.add(eventObject.context);
+            fetchWakaTimeStats(eventObject.context);
             break;
         case 'willDisappear':
             console.log('Stream-Deck disappeared');
+            visibleContexts.delete(eventObject.context);
             break;
         case 'sendToPlugin':
             console.log('Data from PropertyInspector arrived.');
@@ -38,7 +39,7 @@ function handleMessage(event) {
             break;
         case 'keyUp':
             console.log('Pressed keyUp');
-            fetchWakaTimeStats();
+            fetchWakaTimeStats(eventObject.context);
             break;
         default:
             console.log('Unknown Event: ' + eventObject.event);
@@ -46,23 +47,32 @@ function handleMessage(event) {
     }
 }
 
-function fetchWakaTimeStats() {
-    if (!(settings.username && settings.apikey && settings.minutes)) {
-        showAlert();
+function fetchWakaTimeStats(context) {
+    if (!(settings && settings.token && settings.minutes)) {
+        visibleContexts.forEach(visibleContext => showAlert(visibleContext));
         return;
     }
 
-    fetch(`https://wakatime.com/api/v1/users/${settings.username}/durations?date=today`, {
+    fetch('https://api.wakatime.com/api/v1/users/current/durations?date=today', {
         headers: new Headers({
-            'Authorization': 'Basic ' + btoa(settings.apikey),
+            'Authorization': 'Bearer ' + settings.token,
         })
     }).then(response => {
-        return response.json();
+        return response.json().then(data => {
+            if (!response.ok) {
+                throw new Error(`WakaTime API returned HTTP ${response.status}: ${data.error || 'request failed'}`);
+            }
+            return data;
+        });
     }).then(data => {
+        if (!Array.isArray(data.data)) {
+            throw new Error('WakaTime API response did not contain durations.');
+        }
         remainingMinutes = calculateRemainingMinutes(data.data, settings.minutes);
-        setTitle(remainingMinutes);
+        const contexts = context ? [context] : visibleContexts;
+        contexts.forEach(visibleContext => setTitle(visibleContext, remainingMinutes));
     }).catch(error => {
-        console.log(error);
+        console.warn('WakaTime request failed:', error);
     });
 }
 
@@ -84,7 +94,7 @@ function startTimer() {
     }, 30 * 1000);
 }
 
-function showAlert() {
+function showAlert(context) {
     const json = {
         "event": "showAlert",
         "context": context,
@@ -109,7 +119,7 @@ function unregisterPlugin(event) {
     clearInterval(timerId);
 }
 
-function setTitle(title) {
+function setTitle(context, title) {
     const json = {
         "event": "setTitle",
         "context": context,

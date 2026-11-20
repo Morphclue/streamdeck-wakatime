@@ -1,8 +1,12 @@
 let websocket = null;
 let inspectorUUID = null;
+let actionUUID = null;
+let actionContext = null;
 
 function connectElgatoStreamDeckSocket(inPort, inPropertyInspectorUUID, inRegisterEvent, inInfo, inActionInfo) {
     inspectorUUID = inPropertyInspectorUUID;
+    actionUUID = inActionInfo.action;
+    actionContext = inActionInfo.context;
     websocket = new WebSocket('ws://localhost:' + inPort);
 
     websocket.onopen = () => registerPlugin(inRegisterEvent, inPropertyInspectorUUID);
@@ -41,19 +45,8 @@ function registerPlugin(inRegisterEvent, inPropertyInspectorUUID) {
 function reloadProperties(eventObject) {
     const payloadSettings = eventObject.payload.settings;
 
-    if (document.getElementById('username').value === "undefined") {
-        document.getElementById('username').value = "";
-    }
-    if (document.getElementById('apikey').value === "undefined") {
-        document.getElementById('apikey').value = "";
-    }
-    if (document.getElementById('minutes').value === "undefined") {
-        document.getElementById('minutes').value = "";
-    }
-
-    document.getElementById('username').value = payloadSettings.username;
-    document.getElementById('apikey').value = payloadSettings.apikey;
-    document.getElementById('minutes').value = payloadSettings.minutes;
+    document.getElementById('token').value = payloadSettings.token || "";
+    document.getElementById('minutes').value = payloadSettings.minutes || "";
 }
 
 function refreshButtonOnClick() {
@@ -62,8 +55,7 @@ function refreshButtonOnClick() {
 
 function setGlobalSettings() {
     let payload = {};
-    payload.username = document.getElementById('username').value;
-    payload.apikey = document.getElementById('apikey').value;
+    payload.token = document.getElementById('token').value;
     payload.minutes = document.getElementById('minutes').value;
 
     const json = {
@@ -78,9 +70,9 @@ function setGlobalSettings() {
 
 function sendToPlugin(payload) {
     const json = {
-        "action": "com.morphclue.wakatime.action",
+        "action": actionUUID,
         "event": "sendToPlugin",
-        "context": inspectorUUID,
+        "context": actionContext,
         "payload": payload
     };
 
