@@ -12,6 +12,7 @@
         }
       ],
       "SupportedInMultiActions": false,
+      "UserTitleEnabled": false,
       "Tooltip": "Display left WakaTime hours",
       "UUID": "com.morphclue.wakatime.action"
     }
