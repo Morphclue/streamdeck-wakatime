@@ -16,7 +16,7 @@
       "UUID": "com.morphclue.wakatime.action"
     }
   ],
-  "SDKVersion": 2,
+  "SDKVersion": 3,
   "Author": "Morphclue",
   "CodePath": "index.html",
   "PropertyInspectorPath": "propertyinspector/index.html",
@@ -38,6 +38,6 @@
     }
   ],
   "Software": {
-    "MinimumVersion": "6.4"
+    "MinimumVersion": "6.9"
   }
 }
