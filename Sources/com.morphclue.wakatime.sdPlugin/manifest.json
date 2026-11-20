@@ -23,6 +23,7 @@
   "Description": "Username- and Timer-Settings",
   "Name": "Stream Deck WakaTime",
   "Category": "Stream Deck WakaTime",
+  "CategoryIcon": "action/images/actionimage",
   "Icon": "action/images/action",
   "URL": "https://github.com/Morphclue/streamdeck-wakatime",
   "Version": "1.0.12.0",
