@@ -6,7 +6,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - run: .\Tools\DistributionTool.exe -b -i "Sources\com.morphclue.wakatime.sdPlugin" -o .
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npx --yes @elgato/cli@latest validate "Sources\com.morphclue.wakatime.sdPlugin" --no-update-check
+      - run: npx --yes @elgato/cli@latest pack "Sources\com.morphclue.wakatime.sdPlugin" --output . --force --no-update-check --no-file-list
       - uses: actions/upload-artifact@v2
         with:
           name: plugin-artifact

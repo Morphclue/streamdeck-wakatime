@@ -1,4 +1,5 @@
 {
+  "UUID": "com.morphclue.wakatime",
   "Actions": [
     {
       "Icon": "action/images/actionimage",
@@ -7,7 +8,7 @@
         {
           "Image": "action/images/action",
           "TitleAlignment": "middle",
-          "FontSize": "16"
+          "FontSize": 16
         }
       ],
       "SupportedInMultiActions": false,
@@ -21,9 +22,10 @@
   "PropertyInspectorPath": "propertyinspector/index.html",
   "Description": "Username- and Timer-Settings",
   "Name": "Stream Deck WakaTime",
+  "Category": "Stream Deck WakaTime",
   "Icon": "action/images/action",
   "URL": "https://github.com/Morphclue/streamdeck-wakatime",
-  "Version": "1.0.12",
+  "Version": "1.0.12.0",
   "OS": [
     {
       "Platform": "mac",
@@ -35,6 +37,6 @@
     }
   ],
   "Software": {
-    "MinimumVersion": "4.1"
+    "MinimumVersion": "6.4"
   }
 }
